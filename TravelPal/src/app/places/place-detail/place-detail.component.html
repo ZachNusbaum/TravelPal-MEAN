@@ -1,0 +1,47 @@
+<h1>Place Detail</h1>
+<hr>
+<h2 class="text-muted" *ngIf="!data">Loading...</h2>
+<h2 class="text-muted" *ngIf="!!data">{{data.name}}</h2>
+
+
+<dl *ngIf="!!data">
+    <agm-map 
+      [latitude]="data.geometry.location.lat"
+      [longitude]="data.geometry.location.lng"
+      [zoom]="14">
+        <agm-marker [latitude]="data.geometry.location.lat" [longitude]="data.geometry.location.lng"></agm-marker>
+    </agm-map>
+  <dt>Address</dt>
+  <dd [innerHTML]="data.adr_address"></dd>
+
+  <dt>Phone Number</dt>
+  <dd>{{data.formatted_phone_number}}</dd>
+
+  <dt>Rating</dt>
+  <dd>{{data.rating}}</dd>
+
+  <dt *ngIf="data.opening_hours">Hours</dt>
+  <dd *ngIf="data.opening_hours">
+    <ul>
+      <li *ngFor="let hour of data.opening_hours.weekday_text">{{hour}}</li>
+    </ul>
+  </dd>
+</dl>
+
+<h4 *ngIf="!!data">Reviews</h4>
+<table class="table table-sm table-bordered table-striped table-hover" *ngIf="!!data">
+  <thead>
+    <tr>
+      <th>Author</th>
+      <th>Rating</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let comment of data.reviews">
+      <td>{{comment.author_name}}</td>
+      <td>{{comment.rating}}</td>
+      <td>{{comment.text}}<br><span class="text-muted">{{comment.relative_time_description}}</span></td>
+    </tr>
+  </tbody>
+</table>

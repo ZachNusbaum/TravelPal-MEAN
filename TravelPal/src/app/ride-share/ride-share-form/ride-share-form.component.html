@@ -1,0 +1,18 @@
+<form (submit)="onSubmit()" #rideShareForm="ngForm">
+  <div class="form-group">
+    <label for="start">Starting Point</label>
+    <input type="text" name="start" class="form-control" autocomplete="off" [(ngModel)]="model.start_address" required>
+  </div>
+
+  <div class="form-group">
+    <label for="start">Destination</label>
+    <input type="text" name="destination" class="form-control" autocomplete="off" [(ngModel)]="model.end_address" required>
+  </div>
+
+  <div class="form-group">
+    <div class="btn-group">
+        <input type="submit" value="Lookup" class="btn btn-primary" [disabled]="!rideShareForm.valid">
+        <button (click)="clearAddresses()" class="btn btn-danger">Clear</button>
+    </div>
+  </div>
+</form>

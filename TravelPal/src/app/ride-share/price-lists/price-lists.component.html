@@ -1,0 +1,23 @@
+<p class="lead" *ngIf="!geocoded && !loading">Address not submitted</p>
+<p *ngIf="loading">Geocoding...</p>
+<div class="div" *ngIf="geocoded">
+    <agm-map
+        [latitude]="coords1.lat"
+        [longitude]="coords1.lng"
+        [zoom]="10">
+        <agm-marker [latitude]="coords1.lat" [longitude]="coords1.lng">Begin</agm-marker>
+        <agm-marker [latitude]="coords2.lat" [longitude]="coords2.lng">Start</agm-marker>
+    </agm-map>
+    <div class="uber">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="lead" *ngIf="uberLoading">Loading Uber Prices...</p>
+                <app-uber-prices [prices]="uberPrices" *ngIf="!uberLoading"></app-uber-prices>
+            </div>
+            <div class="col-md-6">
+                <p class="lead" *ngIf="lyftLoading">Loading Lyft Prices...</p>
+                <app-lyft-prices [prices]="lyftPrices" *ngIf="!lyftLoading"></app-lyft-prices>
+            </div>
+        </div>
+    </div>
+</div>

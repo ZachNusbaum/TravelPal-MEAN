@@ -1,0 +1,6 @@
+<h1>Places Search</h1>
+<p class="lead">Produces a list of 20 points of interest near the provided location.</p>
+<hr>
+<app-places-search-form (populated)="placesList.receiveData($event)" #placesForm></app-places-search-form>
+<hr>
+<app-places-list [finished]="placesForm.finished" [submitted]="placesForm.submitted" #placesList></app-places-list>
