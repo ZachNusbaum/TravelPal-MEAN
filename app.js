@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 const comparisons = require('./controllers/comparisons');
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/comparisons');
+mongoose.connect(process.env.MONGO_URL);
 
 app.use(cors());
 
