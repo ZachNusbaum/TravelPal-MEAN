@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  base_uri: 'http://localhost:3000/comparisons'
+  base_uri: 'http://206.189.178.146:16388/comparisons'
 };
 
 /*
