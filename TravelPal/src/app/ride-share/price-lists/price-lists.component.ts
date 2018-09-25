@@ -1,3 +1,4 @@
+import { MongoService } from './../../mongo.service';
 import { LyftService } from './../../lyft.service';
 import { LatLng } from './../../lat-lng';
 import { GeocodingService } from './../../geocoding.service';
@@ -20,7 +21,7 @@ export class PriceListsComponent implements OnInit {
   lyftLoading = true;
   lyftPrices: any[];
 
-  constructor(private geocoder: GeocodingService, private uber: UberService, private lyft: LyftService) { }
+  constructor(private geocoder: GeocodingService, private uber: UberService, private lyft: LyftService, private mongoService: MongoService) { }
 
   ngOnInit(): void {
   }
@@ -42,6 +43,15 @@ export class PriceListsComponent implements OnInit {
       if ( dist > 100 ) { alert('Error: Addresses are more than 100 miles apart.'); this.loading = false; return false; }
       this.loading = false; // At this point, the addresses are geocoded.
       this.geocoded = true;
+      this.mongoService.addNew({input1: trip.start_address,
+        input2: trip.end_address,
+        lat1: responses[0].results[0].geometry.location.lat,
+        lat2: responses[1].results[0].geometry.location.lat,
+        lng1: responses[0].results[0].geometry.location.lng,
+        lng2: responses[1].results[0].geometry.location.lng,
+        timestamp: Date.now()}).subscribe((response: any) => {
+          console.log(response);
+        });
       console.log('Geocoded: ', [this.coords1, this.coords2]);
       // Send the geocoded addresses to the Uber API and subscribe to the response.
       this.uber.getPrices(this.coords1, this.coords2).subscribe((uberResponse: any) => {
